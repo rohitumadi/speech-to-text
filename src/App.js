@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+
+import "./App.css";
+import useClipboard from "react-use-clipboard";
+import { useState } from "react";
 
 function App() {
+  const startListening = () =>
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: "en-IN",
+    });
+  const stopListening = () => SpeechRecognition.stopListening();
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
+  const [isCopied, setCopied] = useClipboard(transcript, {
+    successDuration: 1000,
+  });
+
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <div className="container">
+        <h2>Speech to Text Converter</h2>
+        <br />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          A React hook that converts speech from microphone to text and makes it
+          available to your React components.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div className="main-content">{transcript}</div>
+        <div className="btn-style">
+          <button
+            onClick={() => {
+              setCopied();
+            }}
+          >
+            {isCopied ? "Copied!" : "Copy to clipboard!"}
+          </button>
+
+          <button onClick={startListening}>Start Listening</button>
+          <button onClick={stopListening}>Stop Listening</button>
+        </div>
+      </div>
     </div>
   );
 }
