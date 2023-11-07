@@ -30,12 +30,17 @@ h2 {
   letter-spacing: -0.2px;
   font-family: "Merriweather", serif;
 }
+.alert {
+  margin-top: 0;
+  padding: 0;
+  color: red;
+  margin-bottom: 20px;
+}
 
 p {
   max-width: 50rem;
   text-align: center;
   margin-top: 24px;
-  margin-bottom: 40px;
 }
 
 .main-content {

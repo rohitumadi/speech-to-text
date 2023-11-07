@@ -31,6 +31,10 @@ function App() {
           A React hook that converts speech from microphone to text and makes it
           available to your React components.
         </p>
+        <p className="alert">
+          Please use Google Chrome as this hook is designed to run on chrome as
+          of now!
+        </p>
         <div className="main-content">{transcript}</div>
         <div className="btn-style">
           <button
